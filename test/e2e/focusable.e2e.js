@@ -315,9 +315,7 @@ describe('focusable', () => {
         container.innerHTML = fixtures.nested;
         document.body.append(container);
 
-        const focusableElements = focusable(container, {
-          includeContainer: false,
-        });
+        const focusableElements = focusable(container, false);
 
         expect(getIdsFromElementsArray(focusableElements)).to.eql(
           expectedFocusableIds
@@ -345,40 +343,6 @@ describe('focusable', () => {
           );
           expect(getIdsFromElementsArray(focusableElementsFull)).to.eql(
             getIdsFromElementsArray(focusableElementsDefault)
-          );
-        });
-        it('return only elements with size ("non-zero-area" option)', () => {
-          const expectedFocusableIds = ['displayed-top', 'displayed-nested'];
-          const container = document.createElement('div');
-          container.innerHTML = fixtures.displayed;
-          document.body.append(container);
-
-          const focusableElementsWithSize = focusable(container, {
-            displayCheck: 'non-zero-area',
-          });
-
-          expect(getIdsFromElementsArray(focusableElementsWithSize)).to.eql(
-            expectedFocusableIds
-          );
-        });
-        it('return elements without checking display ("none" option)', () => {
-          const expectedFocusableIds = [
-            'displayed-top',
-            'displayed-nested',
-            'displayed-none-top',
-            'nested-under-displayed-none',
-            'displayed-zero-size',
-          ];
-          const container = document.createElement('div');
-          container.innerHTML = fixtures.displayed;
-          document.body.append(container);
-
-          const focusableElementsWithSize = focusable(container, {
-            displayCheck: 'none',
-          });
-
-          expect(getIdsFromElementsArray(focusableElementsWithSize)).to.eql(
-            expectedFocusableIds
           );
         });
       });

@@ -446,37 +446,5 @@ describe('isTabbable', () => {
       expect(isTabbable(displayedNoneTop)).to.eql(false);
       expect(isTabbable(nestedUnderDisplayedNone)).to.eql(false);
     });
-    it('return only elements with size ("non-zero-area" option)', () => {
-      const {
-        displayedTop,
-        displayedNested,
-        displayedZeroSize,
-        displayedNoneTop,
-        nestedUnderDisplayedNone,
-      } = setupDisplayCheck();
-
-      const options = { displayCheck: 'non-zero-area' };
-      expect(isTabbable(displayedTop, options)).to.eql(true);
-      expect(isTabbable(displayedNested, options)).to.eql(true);
-      expect(isTabbable(displayedZeroSize, options)).to.eql(false);
-      expect(isTabbable(displayedNoneTop, options)).to.eql(false);
-      expect(isTabbable(nestedUnderDisplayedNone, options)).to.eql(false);
-    });
-    it('return elements without checking display ("none" option)', () => {
-      const {
-        displayedTop,
-        displayedNested,
-        displayedZeroSize,
-        displayedNoneTop,
-        nestedUnderDisplayedNone,
-      } = setupDisplayCheck();
-
-      const options = { displayCheck: 'none' };
-      expect(isTabbable(displayedTop, options)).to.eql(true);
-      expect(isTabbable(displayedNested, options)).to.eql(true);
-      expect(isTabbable(displayedZeroSize, options)).to.eql(true);
-      expect(isTabbable(displayedNoneTop, options)).to.eql(true);
-      expect(isTabbable(nestedUnderDisplayedNone, options)).to.eql(true);
-    });
   });
 });

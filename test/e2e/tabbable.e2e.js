@@ -344,9 +344,7 @@ describe('tabbable', () => {
         container.innerHTML = fixtures.nested;
         document.body.append(container);
 
-        const tabbableElements = tabbable(container, {
-          includeContainer: false,
-        });
+        const tabbableElements = tabbable(container, false);
 
         expect(getIdsFromElementsArray(tabbableElements)).to.eql(
           expectedTabbableIds
@@ -374,40 +372,6 @@ describe('tabbable', () => {
           );
           expect(getIdsFromElementsArray(tabbableElementsFull)).to.eql(
             getIdsFromElementsArray(tabbableElementsDefault)
-          );
-        });
-        it('return only elements with size ("non-zero-area" option)', () => {
-          const expectedTabbableIds = ['displayed-top', 'displayed-nested'];
-          const container = document.createElement('div');
-          container.innerHTML = fixtures.displayed;
-          document.body.append(container);
-
-          const tabbableElementsWithSize = tabbable(container, {
-            displayCheck: 'non-zero-area',
-          });
-
-          expect(getIdsFromElementsArray(tabbableElementsWithSize)).to.eql(
-            expectedTabbableIds
-          );
-        });
-        it('return elements without checking display ("none" option)', () => {
-          const expectedTabbableIds = [
-            'displayed-top',
-            'displayed-nested',
-            'displayed-none-top',
-            'nested-under-displayed-none',
-            'displayed-zero-size',
-          ];
-          const container = document.createElement('div');
-          container.innerHTML = fixtures.displayed;
-          document.body.append(container);
-
-          const tabbableElementsWithSize = tabbable(container, {
-            displayCheck: 'none',
-          });
-
-          expect(getIdsFromElementsArray(tabbableElementsWithSize)).to.eql(
-            expectedTabbableIds
           );
         });
       });

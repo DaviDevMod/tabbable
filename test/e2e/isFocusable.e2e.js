@@ -460,37 +460,5 @@ describe('isFocusable', () => {
       expect(isFocusable(displayedNoneTop)).to.eql(false);
       expect(isFocusable(nestedUnderDisplayedNone)).to.eql(false);
     });
-    it('return only elements with size ("non-zero-area" option)', () => {
-      const {
-        displayedTop,
-        displayedNested,
-        displayedZeroSize,
-        displayedNoneTop,
-        nestedUnderDisplayedNone,
-      } = setupDisplayCheck();
-
-      const options = { displayCheck: 'non-zero-area' };
-      expect(isFocusable(displayedTop, options)).to.eql(true);
-      expect(isFocusable(displayedNested, options)).to.eql(true);
-      expect(isFocusable(displayedZeroSize, options)).to.eql(false);
-      expect(isFocusable(displayedNoneTop, options)).to.eql(false);
-      expect(isFocusable(nestedUnderDisplayedNone, options)).to.eql(false);
-    });
-    it('return elements without checking display ("none" option)', () => {
-      const {
-        displayedTop,
-        displayedNested,
-        displayedZeroSize,
-        displayedNoneTop,
-        nestedUnderDisplayedNone,
-      } = setupDisplayCheck();
-
-      const options = { displayCheck: 'none' };
-      expect(isFocusable(displayedTop, options)).to.eql(true);
-      expect(isFocusable(displayedNested, options)).to.eql(true);
-      expect(isFocusable(displayedZeroSize, options)).to.eql(true);
-      expect(isFocusable(displayedNoneTop, options)).to.eql(true);
-      expect(isFocusable(nestedUnderDisplayedNone, options)).to.eql(true);
-    });
   });
 });

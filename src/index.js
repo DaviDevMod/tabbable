@@ -31,10 +31,6 @@ const getCandidates = function (el, includeContainer, filter) {
   return candidates;
 };
 
-const isContentEditable = function (node) {
-  return node.contentEditable === 'true';
-};
-
 const getTabindex = function (node) {
   const tabindexAttr = parseInt(node.getAttribute('tabindex'), 10);
 
@@ -42,21 +38,15 @@ const getTabindex = function (node) {
     return tabindexAttr;
   }
 
-  // Browsers do not return `tabIndex` correctly for contentEditable nodes;
-  // so if they don't have a tabindex attribute specifically set, assume it's 0.
-  if (isContentEditable(node)) {
-    return 0;
-  }
-
   // in Chrome, <details/>, <audio controls/> and <video controls/> elements get a default
-  //  `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
-  //  yet they are still part of the regular tab order; in FF, they get a default
-  //  `tabIndex` of 0; since Chrome still puts those elements in the regular tab
-  //  order, consider their tab index to be 0.
+  // `tabIndex` of -1 when the 'tabindex' attribute isn't specified in the DOM,
+  // yet they are still part of the regular tab order; in FF, they get a default
+  // `tabIndex` of 0; since Chrome still puts those elements in the regular tab
+  // order, consider their tab index to be 0.
+  // Also browsers do not return `tabIndex` correctly for contentEditable nodes;
+  // so if they don't have a tabindex attribute specifically set, assume it's 0.
   if (
-    (node.nodeName === 'AUDIO' ||
-      node.nodeName === 'VIDEO' ||
-      node.nodeName === 'DETAILS') &&
+    (/^(AUDIO|VIDEO|DETAILS)$/.test(node.tagName) || node.isContentEditable) &&
     node.getAttribute('tabindex') === null
   ) {
     return 0;
